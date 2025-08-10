@@ -1,0 +1,225 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #e6fbfc;
+  padding: 0;
+  margin: 0;
+}
+.wrapper {
+  max-width: 680px;
+  margin: 32px auto;
+  background: #f5fcfc;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px #c9d9ec55;
+  padding: 24px;
+}
+h1 { font-size: 2em; margin-bottom: 1.2em; text-align: left; }
+h2 { font-size: 1.6em; margin: 0 0 14px; }
+
+.search-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-bottom: 18px;
+}
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+#material-input {
+  flex: 1 1 60px;
+  min-width: 60px;
+  max-width: 650px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 7px 8px;
+  font-size: 1em;
+  border: 1px solid #b3dee9;
+  border-radius: 4px;
+}
+#search-btn {
+  background: #00e5ff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 24px;
+  font-weight: bold;
+  color: #111;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #dbfbff;
+  margin-left: 2px;
+  transition: background 0.13s;
+  flex-shrink: 0;
+}
+#search-btn:hover { background: #00b4cc; color: #000; }
+
+/* Tlačítko filtru + IKONA (místo pro tvůj obrázek) */
+#filter-toggle {
+  border: none;
+  background: #00e5ff;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 1em;
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#filter-toggle[aria-expanded="true"] { background: #e9fbff; }
+.filter-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* ← sem se ti JS automaticky vloží background-image, viz JS nahoře (FILTER_ICON_URL) */
+}
+
+/* Tabulka výsledků */
+#result-table, #sector-result-table {
+  width: 100%;
+  max-width: 650px;
+  border-collapse: collapse;
+  margin-bottom: 0;
+}
+#result-table th, #result-table td,
+#sector-result-table th, #sector-result-table td {
+  padding: 7px 4px;
+  border: 1px solid #000000;
+}
+#result-table thead th, #sector-result-table thead th {
+  background: #7af4ff;
+  text-align: center;
+}
+#result-table td, #sector-result-table td {
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 1.09em;
+}
+#result-table tbody tr.result-row { cursor: pointer; }
+#result-table tbody tr.result-row:hover { background: #f0ffff; }
+
+#noresult {
+  text-align: center;
+  margin-top: 13px;
+  font-weight: bold;
+  color: #b00;
+  font-size: 1.16em;
+  display: none;
+}
+
+/* Filtry */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 12px;
+}
+.filters select {
+  padding: 6px 8px;
+  border: 1px solid #b3dee9;
+  border-radius: 4px;
+  background: #fff;
+}
+.filters .filter-label { font-size: .95em; }
+
+/* Obrázky sektorů */
+.vetsi-obrazek {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 6px;
+  border: 1.5px solid #abc;
+  margin-top: 15px;
+  display: block;
+  background: transparent !important;
+}
+
+/* NOVÁ BUBLINA – výběr místnosti v 1 obdélníku rozděleném na 5 dílů */
+.room-picker {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 650px;
+  margin: 10px 0 12px;
+
+  /* požadavky */
+  background: #00e5ff;     /* podklad kontejneru */
+  border: 1px solid #000;  /* černé orámování celého bloku */
+  border-radius: 10px;
+  overflow: hidden;
+}
+.room-picker .room-cell {
+  /* zrušit defaultní vzhled tlačítek (kvůli „červeným“ okrajům) */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  /* vlastní vzhled */
+  background: #7af4ff;     /* pozadí buněk */
+  color: #000;             /* černý text */
+  padding: 10px 8px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  /* dělení mezi buňkami černou čarou */
+  border-left: 1px solid #000;
+  border-radius: 0;        /* vnitřní rohy ostré */
+}
+.room-picker .room-cell:first-child { border-left: none; }
+.room-picker .room-cell:hover { background: #00cce0; } /* jemné ztmavení při hoveru */
+/* přístupné zvýraznění klávesnicí – černé, ne červené */
+.room-picker .room-cell:focus-visible { outline: 2px solid #000; outline-offset: -2px; }
+/* Firefox: odstraní vnitřní implicitní okraj */
+.room-picker .room-cell::-moz-focus-inner { border: 0; }
+
+/* 24-sektorová mřížka */
+.sector-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  max-width: 650px;
+  margin-top: 12px;
+}
+.sector-grid .sector-btn {
+  padding: 8px 0;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;             /* ← čísla tlačítek sektorů černá */
+  cursor: pointer;
+  font-weight: 700;
+  outline: none;           /* odstranit default outline */
+}
+.sector-grid .sector-btn:hover { background: #e7fbff; }
+
+@media (max-width: 640px) {
+  .room-picker { grid-template-columns: 1fr; }
+  .room-picker .room-cell { border-left: none; border-top: 1px solid #000; }
+  .room-picker .room-cell:first-child { border-top: none; }
+  .sector-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .search-row {
+    flex-direction: column;
+    gap: 4px;
+    align-items: stretch;
+  }
+  #material-input, #search-btn, #filter-toggle {
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+}
+@media (max-width: 750px) {
+  .wrapper { padding: 5vw 2vw; }
+  #result-table, #sector-result-table { max-width: 100%; }
+}

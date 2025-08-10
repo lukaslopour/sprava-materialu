@@ -1,0 +1,76 @@
+<div class="wrapper">
+  <h1>Správa materiálu</h1>
+
+  <div class="search-box">
+    <label for="material-input" style="font-size:1.07em; margin-bottom:5px;">Zadej název materiálu:</label>
+
+    <div class="search-row">
+      <input type="text" id="material-input" placeholder="např. Stan" />
+      <button id="filter-toggle" title="Zobrazit/skrýt filtry" aria-expanded="false" aria-controls="filter-container">
+        <span class="filter-icon"></span>
+      </button>
+      <button id="search-btn">Najít</button>
+    </div>
+  </div>
+
+  <!-- Filtry – defaultně skryté -->
+  <div class="filters" id="filter-container" style="display:none;">
+    <label for="filter-mistnost" class="filter-label">Místnost:</label>
+    <select id="filter-mistnost">
+      <option value="__all">Vše</option>
+    </select>
+
+    <label for="filter-sektor" class="filter-label">Sektor:</label>
+    <select id="filter-sektor">
+      <option value="__all">Vše</option>
+    </select>
+  </div>
+
+  <table id="result-table">
+    <thead>
+      <tr>
+        <th>Hledaný objekt</th>
+        <th>Místnost</th>
+        <th>Sektor</th>
+        <th>Krabice/police</th>
+      </tr>
+    </thead>
+    <tbody id="result-tbody"></tbody>
+  </table>
+
+  <div id="noresult"></div>
+  <div id="obrazek-wrap"></div>
+</div>
+
+<!-- NOVÁ BUBLINA: „Co je v…“ -->
+<div class="wrapper">
+  <h2>Co je v…</h2>
+
+  <!-- Výběr místnosti v jednom obdélníku rozděleném na 5 částí -->
+  <div class="room-picker" id="room-picker">
+    <button class="room-cell" data-room="půda">Půda</button>
+    <button class="room-cell" data-room="sklad">Sklad</button>
+    <button class="room-cell" data-room="2.np - velká">2.NP velká</button>
+    <button class="room-cell" data-room="skříň - chodba">Skříň - chodba</button>
+    <button class="room-cell" data-room="garáž">Garáž</button>
+  </div>
+
+  <!-- Obrázek rozložení sektorů zvolené místnosti -->
+  <div id="room-image-wrap"></div>
+
+  <!-- Mřížka 24 sektorů (1–24) -->
+  <div id="sector-grid" class="sector-grid" style="display:none;"></div>
+
+  <!-- Tabulka s obsahem vybraného sektoru -->
+  <table id="sector-result-table" style="display:none;">
+    <thead>
+      <tr>
+        <th>Objekt</th>
+        <th>Místnost</th>
+        <th>Sektor</th>
+        <th>Krabice/police</th>
+      </tr>
+    </thead>
+    <tbody id="sector-result-tbody"></tbody>
+  </table>
+</div>
